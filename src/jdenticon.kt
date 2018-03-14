@@ -1,3 +1,6 @@
+import jdk.nashorn.internal.objects.NativeFunction.function
+import java.util.logging.Logger.global
+
 /**
  * Draws an identicon as an SVG string.
  * @param {any} hashOrValue - A hexadecimal hash string or any value that will be hashed by Jdenticon.
@@ -8,27 +11,27 @@
 fun toSvg(hashOrValue: String, size: Int, padding: Float) : String {
     var writer = SvgWriter(size)
     var renderer = SvgRenderer(writer)
-    IconGenerator(
+    iconGenerator(
             renderer,
-            hashOrValue,
-            0f,
-            0f,
-            size.toFloat(),
+            getValidHash(hashOrValue) || computeHash(hashOrValue),
+            0,
+            0,
+            size,
             padding,
             getCurrentConfig()
     );
-    return writer.toString()
+    return writer.toString();
 }
 
 /**
  * Gets the normalized current Jdenticon color configuration. Missing fields have default values.
  */
-fun getCurrentConfig() : Config {
+fun getCurrentConfig() : Map<String, Any> {
 //    var configObject = jdenticon["config"] || global["jdenticon_config"] || { },
 //    lightnessConfig = configObject["lightness"] || { },
 //    saturation = configObject["saturation"],
 //    backColor = configObject["backColor"];
-        var backColor = "#FFFFFF"
+        var backColor = "#000000"
     /**
      * Creates a lightness range.
      */
@@ -44,10 +47,10 @@ fun getCurrentConfig() : Config {
         }
     }
 
-    return Config(
-        0.5f,
-        lightness("color", 0.4f, 0.8f),
-        lightness("grayscale", 0.3f, 0.9f),
-        Color.parse(backColor)
+    return mapOf(
+        "saturation" to 0.5,
+        "colorLightness" to lightness("color", 0.4f, 0.8f),
+        "grayscaleLightness" to lightness("grayscale", 0.3f, 0.9f),
+        "backColor" to Color.parse(backColor)
     )
 }

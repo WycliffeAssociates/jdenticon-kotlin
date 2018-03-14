@@ -1,4 +1,3 @@
-import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.round
 
@@ -42,7 +41,6 @@ class Color {
                     return color
                 }
             }
-            return "#000000"
         }
 
         /**
@@ -58,7 +56,7 @@ class Color {
             var r = hexColor.substring(1, 2).toInt(16)
             var g = hexColor.substring(3, 2).toInt(16)
             var b = hexColor.substring(5, 2).toInt(16)
-            return "rgba(" + r + "," + g + "," + b + "," + String.format("%02f", a / 255f) + ")"
+            return "rgba(" + r + "," + g + "," + b + "," + String.format("%02f", a / 255f) + ")";
         }
         /**
          * @param h Hue [0, 1]
@@ -68,28 +66,28 @@ class Color {
         fun hsl(h: Float, s: Float, l: Float) : String {
             // Based on http://www.w3.org/TR/2011/REC-css3-color-20110607/#hsl-color
             if (s == 0f) {
-                var partialHex = decToHex(round(l * 255f).toInt())
-                return "#" + partialHex + partialHex + partialHex
+                var partialHex = decToHex(round(l * 255f).toInt());
+                return "#" + partialHex + partialHex + partialHex;
             }
             else {
                 var m2 = if (l <= 0.5f)  l * (s + 1) else l + s - l * s
-                var m1 = l * 2 - m2
+                var m1 = l * 2 - m2;
                 return "#" +
                         hueToRgb(round(m1).toInt(), round(m2).toInt(), round(h * 6f + 2f).toInt()) +
                         hueToRgb(round(m1).toInt(), round(m2).toInt(), round(h * 6f).toInt()) +
-                        hueToRgb(round(m1).toInt(), round(m2).toInt(), round(h * 6f - 2f).toInt())
+                        hueToRgb(round(m1).toInt(), round(m2).toInt(), round(h * 6f - 2f).toInt());
             }
         }
         // This function will correct the lightness for the "dark" hues
-        fun correctedHsl(h: Float, s: Float, l: Float) : String {
-            // The corrector specifies the perceived middle lightnesses for each hue
-            var correctors = arrayOf( 0.55f, 0.5f, 0.5f, 0.46f, 0.6f, 0.55f, 0.55f )
-            var corrector = correctors[floor(h * 6 + 0.5).toInt()]
-
-            // Adjust the input lightness relative to the corrector
-            var l2 = if (l < 0.5f) l * corrector * 2f else corrector + (l - 0.5f) * (1f - corrector) * 2f
-
-            return Color.hsl(h, s, l2)
-        }
+//        fun correctedHsl(h: Float, s: Float, l: Float) : String {
+//            // The corrector specifies the perceived middle lightnesses for each hue
+//            var correctors = [ 0.55, 0.5, 0.5, 0.46, 0.6, 0.55, 0.55 ],
+//            var corrector = correctors[(h * 6 + 0.5) | 0];
+//
+//            // Adjust the input lightness relative to the corrector
+//            l = l < 0.5 ? l * corrector * 2 : corrector + (l - 0.5) * (1 - corrector) * 2;
+//
+//            return Color.hsl(h, s, l);
+//        }
     }
 }

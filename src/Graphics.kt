@@ -6,28 +6,19 @@ class Graphics(renderer: SvgRenderer) {
     var _transform = Transform.noTransform()
 
     fun addPolygon(points: List<Point>, invert: Boolean = false) {
-        var di = 2
+        var di = if (invert) -2 else 2
         var transform = this._transform
         var transformedPoints = ArrayList<Point>()
         var i = if (invert) points.size - 2 else 0
-        if (invert) {
-            for (x in i until points.size step di) {
-                transformedPoints.add(
-                        transform.transformPoint(
-                                points[i].x,
-                                points[i].y
-                        )
-                );
-            }
-        } else {
-            for (x in i downTo 0 step di) {
-                transformedPoints.add(
-                        transform.transformPoint(
-                                points[i].x,
-                                points[i].y
-                        )
-                );
-            }
+        for (x in i until points.size step di) {
+            transformedPoints.add(
+                    transform.transformPoint(
+                            points[i].x,
+                            points[i].y,
+                            points[x + 1].x,
+                            points[x + 1].y
+                    )
+            );
         }
         this._renderer.addPolygon(transformedPoints)
     }
