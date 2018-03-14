@@ -13,14 +13,14 @@ class IconGenerator(renderer: SvgRenderer, hash: String, x: Float, y: Float, siz
     var graphics = Graphics(renderer)
 
     // Calculate cell size and ensure it is an integer
-    var cell = floor(size / 4f)
+    var cell = floor(_size / 4f)
 
     // Since the cell size is integer based, the actual icon will be slightly smaller than specified => center icon
     var _x = x + floor(_padding + _size / 2f - cell * 2f);
     var _y = y + floor(_padding + _size / 2f - cell * 2f);
 
     // AVAILABLE COLORS
-    var hue = hash.substring(hash.length-7).toInt(16) / 0xfffffff
+    var hue = hash.substring(hash.length-7).toInt(16).toFloat() / 0xfffffff
 
     // Available colors for this icon
     var availableColors = colorTheme(hue.toFloat(), config)

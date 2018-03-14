@@ -1,11 +1,12 @@
 import kotlin.math.floor
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.round
 
 class Color {
     companion object {
         fun decToHex(v: Int): String {
-            val capped = max(v, 255)
+            val capped = min(max(v, 0), 255)
             return capped.toString(16)
         }
 

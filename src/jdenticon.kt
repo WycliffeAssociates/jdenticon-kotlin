@@ -5,7 +5,7 @@
  * @param {number=} padding - Optional padding in percents. Extra padding might be added to center the rendered identicon.
  * @returns {string} SVG string
  */
-fun toSvg(hashOrValue: String, size: Int, padding: Float) : String {
+fun toSvg(hashOrValue: String, size: Int, padding: Float? = null) : String {
     var writer = SvgWriter(size)
     var renderer = SvgRenderer(writer)
     IconGenerator(
