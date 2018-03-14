@@ -12,7 +12,7 @@ class SvgWriter(size: Int) {
     }
 
     fun append(color: String, dataString: String) {
-        this._s +=  "\"<path fill=\"" + color + "\" d=\"" + dataString + "\"/>"
+        this._s +=  "<path fill=\"" + color + "\" d=\"" + dataString + "\"/>"
     }
 
     override fun toString() : String {
