@@ -6,7 +6,7 @@ class Transform(x: Float, y: Float, size: Float, rotation: Float) {
     val _rotation = rotation
 
 
-    fun transformPoint(x: Float, y: Float, w: Float?, h: Float?): Point {
+    fun transformPoint(x: Float, y: Float, w: Float? = null, h: Float? = null): Point {
         val right = this._x + this._size
         val bottom = this._y + this._size
         val height = if (h != null) h else 0f

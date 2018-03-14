@@ -46,3 +46,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 .idea*
+*.class
+*.kotlin_module
