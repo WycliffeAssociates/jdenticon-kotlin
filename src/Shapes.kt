@@ -27,9 +27,9 @@ class Shapes {
                 },
                 fun(g: Graphics, cell: Float, index: Int?) {
                     var inner = cell * 0.1f
-                    inner = if (inner > 1f) floor(inner) // large icon => truncate decimals
-                    else if (inner > 0.5) 1f     // medium size icon => fixed width
-                    else inner                   // small icon => anti-aliased border
+                    inner = if (inner > 1f) floor(inner)    // large icon => truncate decimals
+                    else if (inner > 0.5) 1f                // medium size icon => fixed width
+                    else inner                              // small icon => anti-aliased border
 
                     // Use fixed outer border widths in small icons to ensure the border is drawn
                     var outer = if (cell < 6f) 1f
@@ -78,8 +78,8 @@ class Shapes {
                 },
                 fun(g: Graphics, cell: Float, index: Int?) {
                     var inner = cell * 0.14f
-                    inner = if (cell < 8f) inner  // small icon => anti-aliased border
-                    else floor(inner)       // large icon => truncate decimals
+                    inner = if (cell < 8f) inner    // small icon => anti-aliased border
+                    else floor(inner)               // large icon => truncate decimals
 
                     // Use fixed outer border widths in small icons to ensure the border is drawn
                     var outer = if (cell < 4f) 1f

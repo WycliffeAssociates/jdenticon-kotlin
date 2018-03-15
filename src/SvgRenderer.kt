@@ -1,11 +1,11 @@
-class SvgRenderer(target: SvgWriter) {
+class SvgRenderer(target: SvgWriter) :Renderer {
 
     var _pathsByColor = HashMap<String, SvgPath>()
     var _target = target
     var size = target.size
     lateinit var _path: SvgPath
 
-    fun setBackground(fillColor: String) {
+    override fun setBackground(fillColor: String) {
         var re = Regex("^(#......)(..)?")
         var match = re.matchEntire(fillColor)?.groups?.get(1)?.value
         var opacityMatch = re.matchEntire(fillColor)?.groups?.get(2)?.value
@@ -19,26 +19,26 @@ class SvgRenderer(target: SvgWriter) {
         this._target.setBackground(color, opacity)
     }
 
-    fun beginShape(color: String) {
+    override fun beginShape(color: String) {
         if (this._pathsByColor[color] == null) {
             this._pathsByColor[color] = SvgPath()
         }
         this._path = this._pathsByColor[color]!!
     }
 
-    fun endShape() {
+    override fun endShape() {
 
     }
 
-    fun addPolygon(points: List<Point>) {
+    override fun addPolygon(points: List<Point>) {
         this._path.addPolygon(points)
     }
 
-    fun addCircle(point: Point, diameter: Float, counterClockwise: Boolean) {
+    override fun addCircle(point: Point, diameter: Float, counterClockwise: Boolean) {
         this._path.addCircle(point, diameter, counterClockwise)
     }
 
-    fun finish() {
+    override fun finish() {
         for (color in this._pathsByColor.keys) {
             this._target.append(color, this._pathsByColor[color]!!.dataString)
         }

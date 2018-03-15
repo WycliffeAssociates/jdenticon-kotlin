@@ -47,7 +47,7 @@ class Color {
         }
 
         /**
-         * @param {string} hexColor  Color on the format "#RRGGBB" or "#RRGGBBAA"
+         * @param hexColor  Color on the format "#RRGGBB" or "#RRGGBBAA"
          */
         fun toCss3(hexColor: String) : String {
             var a = 1

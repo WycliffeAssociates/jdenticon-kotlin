@@ -1,6 +1,6 @@
 import kotlin.math.floor
 
-class Graphics(renderer: SvgRenderer) {
+class Graphics(renderer: Renderer) {
 
     val _renderer = renderer
     var _transform = Transform.noTransform()
