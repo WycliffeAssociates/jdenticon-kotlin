@@ -1,4 +1,5 @@
-import java.util.Arrays.asList
+package jdenticon
+
 import kotlin.math.floor
 
 class Shapes {
@@ -58,7 +59,7 @@ class Shapes {
                 },
                 fun(g: Graphics, cell: Float, index: Int?) {
                     g.addPolygon(
-                            asList(
+                            listOf(
                                     Point(0f, 0f),
                                     Point(cell, 0f),
                                     Point(cell, cell * 0.7f),

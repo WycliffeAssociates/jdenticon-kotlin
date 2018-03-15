@@ -1,3 +1,5 @@
+package jdenticon
+
 fun colorTheme(hue: Float, config: Config) : List<String> {
     return listOf(
         // Dark gray

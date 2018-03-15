@@ -1,3 +1,5 @@
+package jdenticon
+
 class SvgRenderer(target: SvgWriter) :Renderer {
 
     var _pathsByColor = HashMap<String, SvgPath>()

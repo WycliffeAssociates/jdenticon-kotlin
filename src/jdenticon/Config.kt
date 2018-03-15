@@ -1,3 +1,5 @@
+package jdenticon
+
 class Config (
         saturation: Float,
         colorLightness: (Float) -> Float,

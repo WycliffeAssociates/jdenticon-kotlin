@@ -1,3 +1,5 @@
+package jdenticon
+
 import java.util.Arrays.asList
 import kotlin.math.floor
 

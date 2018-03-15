@@ -1,3 +1,5 @@
+package jdenticon
+
 class SvgWriter(size: Int) {
     val size = size
     var _s = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" +

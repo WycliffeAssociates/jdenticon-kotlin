@@ -1,3 +1,4 @@
+package jdenticon
 
 import kotlin.math.floor
 import kotlin.math.max

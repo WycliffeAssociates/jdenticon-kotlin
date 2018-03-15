@@ -1,4 +1,7 @@
+package jdenticon
+
 class Jdenticon {
+
     companion object {
         /**
          * Draws an identicon as an SVG string.

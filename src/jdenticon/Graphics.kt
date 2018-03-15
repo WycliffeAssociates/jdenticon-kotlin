@@ -1,3 +1,5 @@
+package jdenticon
+
 import kotlin.math.floor
 
 class Graphics(renderer: Renderer) {

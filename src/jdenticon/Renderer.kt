@@ -1,3 +1,5 @@
+package jdenticon
+
 interface Renderer {
     fun setBackground(fillColor: String)
     fun beginShape(color: String)

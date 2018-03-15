@@ -1,3 +1,5 @@
+package jdenticon
+
 class Transform(x: Float, y: Float, size: Float, rotation: Float) {
 
     val _x = x
