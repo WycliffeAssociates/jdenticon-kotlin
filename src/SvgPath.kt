@@ -1,12 +1,13 @@
-import kotlin.math.round
+import kotlin.math.floor
 
 class SvgPath {
     var dataString = ""
 
     fun addPolygon(points: List<Point>) {
         var dataString = "M" + svgValue(points[0].x) + " " + svgValue(points[0].y)
-        for (point in points) {
-            dataString += "L" + svgValue(point.x) + " " + svgValue(point.y)
+
+        for (i in 1 until points.size) {
+            dataString += "L" + svgValue(points[i].x) + " " + svgValue(points[i].y)
         }
         this.dataString += dataString + "Z"
     }
@@ -17,12 +18,12 @@ class SvgPath {
         var svgDiameter = svgValue(diameter)
 
         this.dataString +=
-                "M" + svgValue(point.x) + " " + svgValue(point.y + diameter / 2) +
+                "M" + svgValue(point.x) + " " + svgValue(point.y + diameter / 2f) +
                         "a" + svgRadius + "," + svgRadius + " 0 1," + sweepFlag + " " + svgDiameter + ",0" +
                         "a" + svgRadius + "," + svgRadius + " 0 1," + sweepFlag + " " + (-svgDiameter) + ",0"
     }
 }
 
-fun svgValue(value: Float) : Float {
-    return round(value)
+fun svgValue(value: Float) : Int {
+    return floor(value).toInt()
 }

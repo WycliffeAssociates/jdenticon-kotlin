@@ -6,25 +6,24 @@ class Graphics(renderer: SvgRenderer) {
     var _transform = Transform.noTransform()
 
     fun addPolygon(points: List<Point>, invert: Boolean = false) {
-        var di = 2
         var transform = this._transform
         var transformedPoints = ArrayList<Point>()
-        var i = if (invert) points.size - 2 else 0
-        if (invert) {
-            for (x in i until points.size step di) {
+        var i = if (invert) points.size - 1 else 0
+        if (!invert) {
+            for (x in i until points.size) {
                 transformedPoints.add(
                         transform.transformPoint(
-                                points[i].x,
-                                points[i].y
+                                points[x].x,
+                                points[x].y
                         )
                 );
             }
         } else {
-            for (x in i downTo 0 step di) {
+            for (x in i downTo 0) {
                 transformedPoints.add(
                         transform.transformPoint(
-                                points[i].x,
-                                points[i].y
+                                points[x].x,
+                                points[x].y
                         )
                 );
             }
@@ -64,10 +63,10 @@ class Graphics(renderer: SvgRenderer) {
     fun addRhombus(x: Float, y: Float, w: Float, h: Float, invert: Boolean = false) {
         this.addPolygon(
                 listOf(
-                        Point(x + w / 2, y),
-                        Point(x + w, y + h / 2),
-                        Point(x + w / 2, y + h),
-                        Point(x, y + h / 2)
+                        Point(x + w / 2f, y),
+                        Point(x + w, y + h / 2f),
+                        Point(x + w / 2f, y + h),
+                        Point(x, y + h / 2f)
                 ),
                 invert
         )

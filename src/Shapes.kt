@@ -10,7 +10,7 @@ class Shapes {
                             listOf(
                                     Point(0f, 0f),
                                     Point(cell, 0f),
-                                    Point(cell, cell - k * 2),
+                                    Point(cell, cell - k * 2f),
                                     Point(cell - k, cell),
                                     Point(0f, cell)
                             )
@@ -52,7 +52,7 @@ class Shapes {
                             listOf(
                                     Point(outer, floor(outer)),
                                     Point(cell - inner, floor(outer)),
-                                    Point(outer + (cell - outer - inner) / 2, cell - inner)
+                                    Point(outer + (cell - outer - inner) / 2f, cell - inner)
                             ),
                             true)
                 },
@@ -69,16 +69,16 @@ class Shapes {
                     )
                 },
                 fun(g: Graphics, cell: Float, index: Int?) {
-                    g.addTriangle(cell / 2, cell / 2, cell / 2, cell / 2, 3f)
+                    g.addTriangle(cell / 2f, cell / 2f, cell / 2f, cell / 2f, 3f)
                 },
                 fun(g: Graphics, cell: Float, index: Int?) {
-                    g.addRectangle(0f, 0f, cell, cell / 2)
-                    g.addRectangle(0f, cell / 2, cell / 2, cell / 2)
-                    g.addTriangle(cell / 2, cell / 2, cell / 2, cell / 2, 1f)
+                    g.addRectangle(0f, 0f, cell, cell / 2f)
+                    g.addRectangle(0f, cell / 2f, cell / 2f, cell / 2f)
+                    g.addTriangle(cell / 2f, cell / 2f, cell / 2f, cell / 2f, 1f)
                 },
                 fun(g: Graphics, cell: Float, index: Int?) {
                     var inner = cell * 0.14f
-                    inner = if (cell < 8) inner  // small icon => anti-aliased border
+                    inner = if (cell < 8f) inner  // small icon => anti-aliased border
                     else floor(inner)       // large icon => truncate decimals
 
                     // Use fixed outer border widths in small icons to ensure the border is drawn
@@ -97,7 +97,7 @@ class Shapes {
                     g.addCircle(outer, outer, cell - inner - outer, true)
                 },
                 fun(g: Graphics, cell: Float, index: Int?) {
-                    g.addTriangle(cell / 2, cell / 2, cell / 2, cell / 2, 3f)
+                    g.addTriangle(cell / 2f, cell / 2f, cell / 2f, cell / 2f, 3f)
                 },
                 fun(g: Graphics, cell: Float, index: Int?) {
                     var m = cell * 0.25f
@@ -118,7 +118,7 @@ class Shapes {
                     g.addTriangle(0f, 0f, cell, cell, 0f)
                 },
                 fun(g: Graphics, cell: Float, index: Int?) {
-                    g.addTriangle(0f, cell / 2, cell, cell / 2, 0f)
+                    g.addTriangle(0f, cell / 2f, cell, cell / 2f, 0f)
                 },
                 fun(g: Graphics, cell: Float, index: Int?) {
                     g.addRhombus(0f, 0f, cell, cell)

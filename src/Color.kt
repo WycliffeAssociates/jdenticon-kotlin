@@ -1,7 +1,7 @@
+
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.math.round
 
 class Color {
     companion object {
@@ -10,14 +10,14 @@ class Color {
             return capped.toString(16)
         }
 
-        fun hueToRgb(m1: Int, m2: Int, h: Int): String {
+        fun hueToRgb(m1: Float, m2: Float, h: Float): String {
             val h2 = if (h < 0) h + 6 else if (h > 6) h - 6 else h
-            return decToHex(255 * (
-                    if (h2 < 1) m1 + (m2 - m1) else
+            return decToHex((floor(255 * (
+                    if (h2 < 1) m1 + (m2 - m1) * h2 else
                         if (h2 < 3) m2 else
                             if (h2 < 4) m1 + (m2 - m1) * (4 - h2) else
                                 m1
-                    ))
+                    ))).toInt())
         }
 
         fun rgb(r: Int, g: Int, b: Int): String {
@@ -69,16 +69,16 @@ class Color {
         fun hsl(h: Float, s: Float, l: Float) : String {
             // Based on http://www.w3.org/TR/2011/REC-css3-color-20110607/#hsl-color
             if (s == 0f) {
-                var partialHex = decToHex(round(l * 255f).toInt())
+                var partialHex = decToHex(floor(l * 255f).toInt())
                 return "#" + partialHex + partialHex + partialHex
             }
             else {
                 var m2 = if (l <= 0.5f)  l * (s + 1) else l + s - l * s
                 var m1 = l * 2 - m2
                 return "#" +
-                        hueToRgb(round(m1).toInt(), round(m2).toInt(), round(h * 6f + 2f).toInt()) +
-                        hueToRgb(round(m1).toInt(), round(m2).toInt(), round(h * 6f).toInt()) +
-                        hueToRgb(round(m1).toInt(), round(m2).toInt(), round(h * 6f - 2f).toInt())
+                        hueToRgb(m1, m2, (h * 6f + 2f)) +
+                        hueToRgb(m1, m2, (h * 6f)) +
+                        hueToRgb(m1, m2, (h * 6f - 2f))
             }
         }
         // This function will correct the lightness for the "dark" hues
