@@ -1,3 +1,5 @@
+[![Release](https://jitpack.io/v/WycliffeAssociates/jdenticon-kotlin.svg)]
+(https://jitpack.io/#WycliffeAssociates/jdenticon-kotlin)
 # Jdenticon Kotlin
 
 Kotlin library for generating highly recognizable identicons.
