@@ -9,7 +9,7 @@ class IconGenerator(renderer: SvgRenderer, hash: String, x: Float, y: Float, siz
     val _renderer = renderer
 
     // Calculate padding
-    var _padding = floor(size * (if(padding != null) padding else .08f))
+    var _padding = floor(size * (if(padding != null) padding else 0f))
     var _size = size - _padding * 2f
 
     var graphics = Graphics(renderer)
