@@ -10,7 +10,7 @@ This is based on the [JavaScript Jdenticon library](https://github.com/dmester/j
 
 ### Generate an icon
 
-* `Jdenticon.ToSvg(hash: String, size: Int, padding: Float?)`
+* `Jdenticon.toSvg(hash: String, size: Int, padding: Float?)`
 
   Generates an SVG string containing an icon. Padding is optional (default is null).
 
