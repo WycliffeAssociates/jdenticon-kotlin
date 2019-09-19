@@ -1,5 +1,6 @@
-[![Release](https://jitpack.io/v/WycliffeAssociates/jdenticon-kotlin.svg)]
+![Release](https://jitpack.io/v/WycliffeAssociates/jdenticon-kotlin.svg)
 (https://jitpack.io/#WycliffeAssociates/jdenticon-kotlin)
+
 # Jdenticon Kotlin
 
 Kotlin library for generating highly recognizable identicons.
@@ -8,13 +9,39 @@ Kotlin library for generating highly recognizable identicons.
 
 This is based on the [JavaScript Jdenticon library](https://github.com/dmester/jdenticon).
 
-### Generate an icon
+## Getting Started
+
+### Setting Up the dependency
+
+##### Maven
+```groovy
+<dependency>
+	<groupId>org.wycliffeassociates</groupId>
+	<artifactId>jdenticon-kotlin</artifactId>
+	<version>1.x</version>
+	<type>pom</type>
+</dependency>
+```
+
+##### Gradle
+```groovy
+repositories {
+    jcenter()
+}
+
+implementation 'org.wycliffeassociates:jdenticon-kotlin:1.x'
+```
+
+(Please replace `x` with the latest version numbers) `y` 
+
+#### Generate an icon
 
 * `Jdenticon.toSvg(hash: String, size: Int, padding: Float?)`
 
   Generates an SVG string containing an icon. Padding is optional (default is null).
 
 ---
+
 
 ## License
 
