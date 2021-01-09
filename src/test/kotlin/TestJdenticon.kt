@@ -1,58 +1,47 @@
 import jdenticon.Jdenticon
 import org.junit.Assert.assertEquals
-import org.junit.Assert.fail
 import org.junit.Test
-import java.lang.IllegalArgumentException
+import java.io.File
+import java.nio.file.Files
 
 class TestJdenticon {
 
-    @Test
-    fun `check hex string regex correctness`() {
-        val regex = Jdenticon.REQUIRED_HEX_STRING_REGEX
+    fun safeFilename(filename: String): String = if (filename.isEmpty()) "_" else filename
 
-        // these fail to match
-        assertEquals(false, regex.matches(""))
-        assertEquals(false, regex.matches("0"))
-        assertEquals(false, regex.matches("1"))
-        assertEquals(false, regex.matches("A"))
-        assertEquals(false, regex.matches("f"))
-        assertEquals(false, regex.matches("0123456789"))
-        assertEquals(false, regex.matches("01234abdce"))
-        assertEquals(false, regex.matches("56789FEDCB"))
-        assertEquals(false, regex.matches("1122334455ZZYYXX"))
-
-        // these are valid matches
-        assertEquals(true, regex.matches("0123456789A"))
-        assertEquals(true, regex.matches("0123456789ABCDEF"))
-        assertEquals(true, regex.matches("0123456789abcdef"))
+    fun readSvgFromTestResourceDir(filename: String): String {
+        val svgFile = File(javaClass.classLoader.getResource("svg-output/${safeFilename(filename)}.svg").file)
+        return Files.readAllBytes(svgFile.toPath()).let { bytes -> String(bytes, Charsets.UTF_8) }
     }
 
-    fun expectIllegalArgumentException(failMessage: String, fn: () -> Unit) {
-        try {
-            fn()
-            fail(failMessage)
-        }
-        catch (e: IllegalArgumentException) {
-            // correct exception is thrown
-        }
-    }
+//    fun getHomeDirSvgOutputDir(): File {
+//        return File(System.getProperty("user.home") + "/svg-output").apply {
+//            if (!exists()) {
+//                mkdir()
+//            }
+//        }
+//    }
+//
+//    fun writeSvgToHomeDir(filename: String, svgFileContent: String) {
+//        val homeDirSvgOutput = getHomeDirSvgOutputDir()
+//        val svgFile = File(homeDirSvgOutput, "${safeFilename(filename)}.svg")
+//        svgFile.writer().use { w -> w.write(svgFileContent) }
+//    }
 
     @Test
-    fun `throws exception when hash string is not valid`() {
-        expectIllegalArgumentException("should not allow empty hash") { Jdenticon.toSvg("", 80, null) }
-        expectIllegalArgumentException("should not allow short hash") { Jdenticon.toSvg("1", 80, null) }
-        expectIllegalArgumentException("should not allow less than 11 character hash") { Jdenticon.toSvg("0123456789", 80, null) }
-        expectIllegalArgumentException("should not allow non hexadecimal hash") { Jdenticon.toSvg("0123456789zzzzzz", 80, null) }
-    }
-
-    @Test
-    fun `accepts valid hash strings`() {
-        try {
-            Jdenticon.toSvg("0123456789abcdef", 80, null)
-            Jdenticon.toSvg("0123456789ABCDEF", 80, null)
-        }
-        catch (e: IllegalArgumentException) {
-            fail(e.message)
+    fun `produces expected SVG output`() {
+        val hashList = listOf(
+            "Alice",
+            "Bob",
+            "deadbeef",
+            "deadbeef123",
+            "0123456789ABCDEF",
+            "f49cf6381e322b147053b74e4500af8533ac1e4c"
+        )
+        hashList.forEach { hash ->
+            val svg = Jdenticon.toSvg(hash, 100)
+            //writeSvgToHomeDir(hash, svg)
+            val expectedSvg = readSvgFromTestResourceDir(hash)
+            assertEquals(expectedSvg, svg)
         }
     }
 
