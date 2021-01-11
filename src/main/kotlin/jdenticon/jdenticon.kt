@@ -3,14 +3,16 @@ package jdenticon
 class Jdenticon {
 
     companion object {
+
         /**
          * Draws an identicon as an SVG string.
-         * @param hash - A hexadecimal hash string or any value that will be hashed by Jdenticon.
+         * @param hashOrValue - A hexadecimal hash string or any value that will be hashed by Jdenticon.
          * @param size - Icon size in pixels.
          * @param padding - Optional padding in percents. Extra padding might be added to center the rendered identicon.
          * @returns SVG string
          */
-        fun toSvg(hash: String, size: Int, padding: Float? = null): String {
+        fun toSvg(hashOrValue: String, size: Int, padding: Float? = null): String {
+            val hash = HashUtils.keepOrCreateHash(hashOrValue)
             var writer = SvgWriter(size)
             var renderer = SvgRenderer(writer)
             IconGenerator(
