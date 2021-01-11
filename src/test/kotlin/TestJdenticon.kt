@@ -13,20 +13,6 @@ class TestJdenticon {
         return Files.readAllBytes(svgFile.toPath()).let { bytes -> String(bytes, Charsets.UTF_8) }
     }
 
-//    fun getHomeDirSvgOutputDir(): File {
-//        return File(System.getProperty("user.home") + "/svg-output").apply {
-//            if (!exists()) {
-//                mkdir()
-//            }
-//        }
-//    }
-//
-//    fun writeSvgToHomeDir(filename: String, svgFileContent: String) {
-//        val homeDirSvgOutput = getHomeDirSvgOutputDir()
-//        val svgFile = File(homeDirSvgOutput, "${safeFilename(filename)}.svg")
-//        svgFile.writer().use { w -> w.write(svgFileContent) }
-//    }
-
     @Test
     fun `produces expected SVG output`() {
         val hashList = listOf(
