@@ -1,10 +1,13 @@
-import jdenticon.HashUtils
-import org.junit.Assert.assertEquals
-import org.junit.Test
+package jdenticon
+
+import kotlin.js.JsName
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class TestHashUtils {
 
     @Test
+    @JsName(name = "test1")
     fun `check hex string candidate regex correctness`() {
 
         // these fail to match
@@ -25,13 +28,17 @@ class TestHashUtils {
     }
 
     @Test
+    @JsName(name = "test2")
     fun `keeps or creates correct hash`() {
         assertEquals("da39a3ee5e6b4b0d3255bfef95601890afd80709", HashUtils.keepOrCreateHash(""))
         assertEquals("35318264c9a98faf79965c270ac80c5606774df1", HashUtils.keepOrCreateHash("Alice"))
         assertEquals("da6645f6e22bf5f75974dc7eed5fcd6160d6b51e", HashUtils.keepOrCreateHash("Bob"))
         assertEquals("f49cf6381e322b147053b74e4500af8533ac1e4c", HashUtils.keepOrCreateHash("deadbeef"))
         assertEquals("deadbeef123", HashUtils.keepOrCreateHash("deadbeef123"))
-        assertEquals("f49cf6381e322b147053b74e4500af8533ac1e4c", HashUtils.keepOrCreateHash("f49cf6381e322b147053b74e4500af8533ac1e4c"))
+        assertEquals(
+            "f49cf6381e322b147053b74e4500af8533ac1e4c",
+            HashUtils.keepOrCreateHash("f49cf6381e322b147053b74e4500af8533ac1e4c")
+        )
         assertEquals("0123456789ABCDEF", HashUtils.keepOrCreateHash("0123456789ABCDEF"))
         assertEquals("0123456789abcdef", HashUtils.keepOrCreateHash("0123456789abcdef"))
     }
