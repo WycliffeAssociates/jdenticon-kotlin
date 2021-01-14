@@ -3,23 +3,30 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.novoda:bintray-release:0.9.2'
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4"
     }
 }
 
 plugins {
     id 'org.jetbrains.kotlin.multiplatform' version "1.4.21"
+    id "base"
+    id "maven-publish"
 }
 
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'com.jfrog.bintray'
 
-group 'org.wycliffeassociates'
-version '1.0'
+def GROUP_ID = 'org.wycliffeassociates'
+def ARTIFACT_ID = 'jdenticon-kotlin'
+def VERSION_ID = '1.1'
+def BINTRAY_REPOSITORY = 'jdenticon-kotlin'
+def BINTRAY_ORGINIZATION = 'bible-translation-tools'
 
-sourceCompatibility = 1.8
+group GROUP_ID
+version VERSION_ID
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 kotlin {
@@ -57,16 +64,64 @@ kotlin {
     }
 }
 
-publish {
-    def groupProjectID = 'org.wycliffeassociates'
-    def artifactProjectID = 'jdenticon-kotlin'
-    def publishVersionID = "1.0"
 
-    userOrg = 'bible-translation-tools'
-    repoName = 'jdenticon-kotlin'
-    groupId = groupProjectID
-    artifactId = artifactProjectID
-    publishVersion = publishVersionID
-    desc = 'Kotlin library for generating highly recognizable identicons. based on the JavaScript Jdenticon library.'
-    website = 'https"//github.com/WycliffeAssociates/jdenticon-kotlin'
+/*
+Creating artifacts named "$PROJECT-$CLASSIFIER"
+ */
+afterEvaluate {
+    project.publishing.publications.all {
+        groupId = GROUP_ID
+        artifactId = "$ARTIFACT_ID-$name"
+    }
 }
+
+/*
+Setting bintray credentials for publishing
+ */
+bintray {
+    user = project.hasProperty('user') ? project.property('user') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('key') ? project.property('key') : System.getenv('BINTRAY_API_KEY')
+    publish = false
+    pkg {
+        repo = BINTRAY_REPOSITORY
+        name = ARTIFACT_ID
+        userOrg = BINTRAY_ORGINIZATION
+        licenses = ['MIT']
+        version {
+            name = VERSION_ID
+        }
+    }
+}
+
+/*
+Workaround for publishing kotlin's '.module' files
+ */
+import com.jfrog.bintray.gradle.tasks.BintrayUploadTask
+import org.gradle.api.publish.maven.internal.artifact.FileBasedMavenArtifact
+
+tasks.withType(BintrayUploadTask) {
+    doFirst {
+        publishing.publications.withType(MavenPublication).forEach({ publication ->
+            File moduleFile = new File(project.buildDir, "publications/${publication.name}/module.json")
+            if (moduleFile.exists()) {
+                publication.artifact(new FileBasedMavenArtifact(moduleFile) {
+                    protected String getDefaultExtension() {
+                        return 'module';
+                    }
+                })
+            }
+        })
+    }
+}
+
+/*
+Publishing artifacts that built via 'publishToMavenLocal' task
+ */
+bintrayUpload.doFirst {
+    publications = publishing.publications.collect {
+        it.name
+    }.findAll {
+        it != "metadata"
+    }
+}
+bintrayUpload.dependsOn publishToMavenLocal
