@@ -17,7 +17,7 @@ apply plugin: 'com.jfrog.bintray'
 
 def GROUP_ID = 'org.wycliffeassociates'
 def ARTIFACT_ID = 'jdenticon-kotlin'
-def VERSION_ID = '1.1'
+def VERSION_ID = '1.2'
 def BINTRAY_REPOSITORY = 'jdenticon-kotlin'
 def BINTRAY_ORGINIZATION = 'bible-translation-tools'
 
