@@ -14,10 +14,23 @@ This is based on the [JavaScript Jdenticon library](https://github.com/dmester/j
 ### Setting Up the dependency
 
 ##### Maven
+
+JVM:
 ```groovy
 <dependency>
 	<groupId>org.wycliffeassociates</groupId>
-	<artifactId>jdenticon-kotlin</artifactId>
+	<artifactId>jdenticon-kotlin-jvm</artifactId>
+	<version>1.x</version>
+	<type>pom</type>
+</dependency>
+```
+
+
+JS:
+```groovy
+<dependency>
+	<groupId>org.wycliffeassociates</groupId>
+	<artifactId>jdenticon-kotlin-js</artifactId>
 	<version>1.x</version>
 	<type>pom</type>
 </dependency>
@@ -33,6 +46,11 @@ implementation 'org.wycliffeassociates:jdenticon-kotlin:1.x'
 ```
 
 (Please replace `x` with the latest version numbers) `y` 
+
+#### NOTE: Jdenticon-kotlin has been updated to use kotlin multiplatform as of version 1.2.
+1.1 and lower versions use the artifact ID "jdenticon-kotlin"
+Due to kotlin multiplatform support, the artifact id needs to reflect the platform:
+`jdenticon-kotlin-jvm` or `jdenticon-kotlin-js`
 
 #### Generate an icon
 
