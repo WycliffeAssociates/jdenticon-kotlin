@@ -37,12 +37,23 @@ JS:
 ```
 
 ##### Gradle
+
+JVM:
 ```groovy
 repositories {
     jcenter()
 }
 
-implementation 'org.wycliffeassociates:jdenticon-kotlin:1.x'
+implementation 'org.wycliffeassociates:jdenticon-kotlin-jvm:1.x'
+```
+
+JS:
+```groovy
+repositories {
+    jcenter()
+}
+
+implementation 'org.wycliffeassociates:jdenticon-kotlin-js:1.x'
 ```
 
 (Please replace `x` with the latest version numbers) `y` 
