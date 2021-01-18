@@ -41,7 +41,14 @@ class SvgRenderer(target: SvgWriter) :Renderer {
     }
 
     override fun finish() {
-        for (color in this._pathsByColor.keys) {
+        /*
+            Set is not ordered, so we can have different order of _pathsByColor.keys
+            across different versions (for example, kotlin-js and kotlin-jvm iterate this set
+            in a different order). To make tests stable we have to
+            sort keys. It does not affect performance alot, because there are
+            pretty small amount of keys.
+        */
+        for (color in this._pathsByColor.keys.sorted()) {
             this._target.append(color, this._pathsByColor[color]!!.dataString)
         }
     }

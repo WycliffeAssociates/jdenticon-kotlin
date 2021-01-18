@@ -1,6 +1,5 @@
 package jdenticon
 
-import java.util.Arrays.asList
 import kotlin.math.floor
 
 class IconGenerator(renderer: SvgRenderer, hash: String, x: Float, y: Float, size: Float, padding: Float?, config: Config) {
@@ -69,8 +68,8 @@ class IconGenerator(renderer: SvgRenderer, hash: String, x: Float, y: Float, siz
     init {
         for (i in 0 until 3) {
             index = (hash.elementAt(8 + i).toString().toInt(16) % availableColors.size)
-            if (isDuplicate(asList(0, 4)) || // Disallow dark gray and dark color combo
-                    isDuplicate(asList(2, 3))) { // Disallow light gray and light color combo
+            if (isDuplicate(listOf(0, 4)) || // Disallow dark gray and dark color combo
+                    isDuplicate(listOf(2, 3))) { // Disallow light gray and light color combo
                 index = 1;
             }
             selectedColorIndexes.add(index);

@@ -48,21 +48,6 @@ class Color {
         }
 
         /**
-         * @param hexColor  Color on the format "#RRGGBB" or "#RRGGBBAA"
-         */
-        fun toCss3(hexColor: String) : String {
-            var a = 1
-            try {
-                var a = hexColor.substring(7, 2).toInt(16)
-            } catch (e: NumberFormatException) {
-                return hexColor
-            }
-            var r = hexColor.substring(1, 2).toInt(16)
-            var g = hexColor.substring(3, 2).toInt(16)
-            var b = hexColor.substring(5, 2).toInt(16)
-            return "rgba(" + r + "," + g + "," + b + "," + String.format("%02f", a / 255f) + ")"
-        }
-        /**
          * @param h Hue [0, 1]
          * @param s Saturation [0, 1]
          * @param l Lightness [0, 1]
